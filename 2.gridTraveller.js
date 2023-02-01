@@ -35,6 +35,29 @@ const gridTravelRecurion = (m, n, memo = {}) => {
     return memo[key];
 
 }
-
+console.log("---Recursion---");
 console.log(gridTravelRecurion(1, 1));
 console.log(gridTravelRecurion(3, 3));
+
+//Tabulation Time : O(m*n) , Space:O(m*n)
+const gridTravellerTabulation = (m, n) => {
+    const table = new Array(m + 1)
+        .fill()
+        .map(() => Array(n + 1).fill(0));
+    //common mistake : if fill(Array(n+1)) it fil entire row with single array
+    table[1][1] = 1;
+
+    for (let i = 0; i <= m; i++) {
+        for (let j = 0; j <= n; j++) {
+            const current = table[i][j];
+            //check boundary first 
+            if (j + 1 <= n) table[i][j + 1] += current; //right neighbor
+            if (i + 1 <= m) table[i + 1][j] += current; //down neighbor
+
+        }
+    }
+    return table[m][n];
+}
+console.log("---Tabulation---");
+console.log(gridTravellerTabulation(1, 1));
+console.log(gridTravellerTabulation(3, 3));
